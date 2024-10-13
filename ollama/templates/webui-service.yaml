@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "ollama_ui.fullname" . }}
+  labels:
+    {{- include "ollama_ui.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.ollama_ui.service.type }}
+  ports:
+    - port: {{ .Values.ollama_ui.service.port }}
+      targetPort: http
+      protocol: TCP
+      name: http
+  selector:
+    {{- include "ollama_ui.selectorLabels" . | nindent 4 }}
